@@ -7,7 +7,7 @@ import Button from "../../ui/Button";
 import FileInput from "../../ui/FileInput";
 import Textarea from "../../ui/Textarea";
 import useCreateCabin from "./useCreateCabin";
-import { useEditCabin } from "./useEditCabin";
+import useEditCabin from "./useEditCabin";
 
 const CreateCabinForm = ({ cabinToEdit = {} }) => {
   const { isCreating, createCabinMutate } = useCreateCabin();
