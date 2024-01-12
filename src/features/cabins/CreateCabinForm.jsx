@@ -9,7 +9,7 @@ import Textarea from "../../ui/Textarea";
 import useCreateCabin from "./useCreateCabin";
 import useEditCabin from "./useEditCabin";
 
-const CreateCabinForm = ({ cabinToEdit = {} }) => {
+const CreateCabinForm = ({ cabinToEdit = {}, onCloseModel }) => {
   const { isCreating, createCabinMutate } = useCreateCabin();
   const { isEditing, editCabinMutate } = useEditCabin();
   const isWorking = isCreating || isEditing;
@@ -31,6 +31,7 @@ const CreateCabinForm = ({ cabinToEdit = {} }) => {
         {
           onSuccess: () => {
             reset();
+            onCloseModel?.();
           },
         }
       );
@@ -40,6 +41,7 @@ const CreateCabinForm = ({ cabinToEdit = {} }) => {
         {
           onSuccess: () => {
             reset();
+            onCloseModel?.();
           },
         }
       );
@@ -47,7 +49,10 @@ const CreateCabinForm = ({ cabinToEdit = {} }) => {
   };
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
+    <Form
+      onSubmit={handleSubmit(onSubmit)}
+      type={onCloseModel ? "modal" : "regular"}
+    >
       <FormRow lable="Cabin name" error={errors?.name?.message}>
         <Input
           type="text"
@@ -127,7 +132,11 @@ const CreateCabinForm = ({ cabinToEdit = {} }) => {
 
       <FormRow>
         {/* type is an HTML attribute! */}
-        <Button variation="secondary" type="reset">
+        <Button
+          variation="secondary"
+          type="reset"
+          onClick={() => onCloseModel?.()}
+        >
           Cancel
         </Button>
         <Button disabled={isWorking}>
