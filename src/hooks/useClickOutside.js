@@ -7,7 +7,6 @@ function useClickOutside(handler, listenCapturing = true) {
     function () {
       const handleClick = (e) => {
         if (ref.current && !ref.current.contains(e.target)) {
-          console.log("Click OutSide");
           handler();
         }
       };
