@@ -4,13 +4,16 @@ import Menus from "../../ui/Menus";
 import Empty from "../../ui/Empty";
 import Spinner from "../../ui/Spinner";
 
-import { useFetchBooking } from "./useFetchBooking";
+import { useBookings } from "./useBookings";
+import Pagination from "../../ui/Pagination";
 
 const BookingTable = () => {
-  const { isLoading, bookings, error } = useFetchBooking();
+  const { isLoading, bookings, count } = useBookings();
 
-  if (bookings) if (!bookings.length) return <Empty resourceName="Bookings" />;
   if (isLoading) return <Spinner />;
+
+  if (!bookings.length) return <Empty resourceName="bookings" />;
+
   return (
     <Menus>
       <Table columns="0.6fr 2fr 2.4fr 1.4fr 1fr 3.2rem">
@@ -29,6 +32,9 @@ const BookingTable = () => {
             <BookingRow key={booking.id} booking={booking} />
           )}
         />
+        <Table.Footer>
+          <Pagination count={count} />
+        </Table.Footer>
       </Table>
     </Menus>
   );
