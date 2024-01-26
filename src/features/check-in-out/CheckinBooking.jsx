@@ -14,6 +14,7 @@ import Checkbox from "../../ui/Checkbox";
 import { useEffect, useState } from "react";
 import { formatCurrency } from "../../utils/helpers";
 import useCheckin from "./useCheckin";
+import useSettings from "../settings/useSettings";
 
 const Box = styled.div`
   /* Box */
@@ -24,8 +25,11 @@ const Box = styled.div`
 `;
 
 function CheckinBooking() {
-  const { booking, isLoading } = useBooking();
   const [confirmPaid, setConfirmPaid] = useState(false);
+  const [addBreakfast, setAddBreakfast] = useState(false);
+
+  const { booking, isLoading } = useBooking();
+  const { settings, isLoading: isLoadingSetting } = useSettings();
 
   useEffect(() => setConfirmPaid(booking?.isPaid ?? false), [booking]);
 
@@ -43,6 +47,7 @@ function CheckinBooking() {
     numNights,
   } = booking;
 
+  // const optionalCostOfBreakfast = settings.bre;
   function handleCheckin() {
     if (!confirmPaid) return;
     checkin(bookingId);
@@ -56,10 +61,24 @@ function CheckinBooking() {
       </Row>
 
       <BookingDataBox booking={booking} />
+      {!hasBreakfast && (
+        <Box>
+          <Checkbox
+            id="breakfast"
+            checked={addBreakfast}
+            onChange={() => {
+              setAddBreakfast((add) => !add);
+              setConfirmPaid(false);
+            }}
+          >
+            Want to Add breakfast for x ?
+          </Checkbox>
+        </Box>
+      )}
 
       <Box>
         <Checkbox
-          id={bookingId}
+          id="confirm"
           checked={confirmPaid}
           onChange={() => setConfirmPaid((confirm) => !confirm)}
           disabled={confirmPaid || isCheckingin}

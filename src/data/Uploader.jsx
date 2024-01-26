@@ -7,6 +7,7 @@ import { subtractDates } from "../utils/helpers";
 import { bookings } from "./data-bookings";
 import { cabins } from "./data-cabins";
 import { guests } from "./data-guests";
+import { settings } from "./data-settings";
 
 // const originalSettings = {
 //   minBookingLength: 3,
@@ -29,6 +30,11 @@ async function deleteBookings() {
   const { error } = await supabase.from("bookings").delete().gt("id", 0);
   if (error) console.log(error.message);
 }
+
+const deleteSettings = async () => {
+  const { error } = await supabase.from("settings").delete().gt("id", 0);
+  if (error) console.log(error.message);
+};
 
 async function createGuests() {
   const { error } = await supabase.from("guests").insert(guests);
@@ -99,6 +105,10 @@ async function createBookings() {
   const { error } = await supabase.from("bookings").insert(finalBookings);
   if (error) console.log(error.message);
 }
+const createSettings = async () => {
+  const { error } = await supabase.from("settings").insert(settings);
+  if (error) console.log(error.message);
+};
 
 function Uploader() {
   const [isLoading, setIsLoading] = useState(false);
@@ -109,11 +119,13 @@ function Uploader() {
     await deleteBookings();
     await deleteGuests();
     await deleteCabins();
+    await deleteSettings();
 
     // Bookings need to be created LAST
     await createGuests();
     await createCabins();
     await createBookings();
+    await createSettings();
 
     setIsLoading(false);
   }
