@@ -61,7 +61,7 @@ const CabinRow = ({ cabin }) => {
     description,
   } = cabin;
 
-  const { createCabinMutate } = useCreateCabin();
+  const { isCreating, createCabinMutate } = useCreateCabin();
   const handleDuplicate = () => {
     createCabinMutate({
       name: `copy of ${name}`,
@@ -89,6 +89,7 @@ const CabinRow = ({ cabin }) => {
                 <Menus.Button
                   onClick={handleDuplicate}
                   icon={<HiSquare2Stack />}
+                  disabled={isCreating}
                 >
                   Duplicate
                 </Menus.Button>
