@@ -7,5 +7,5 @@ export const useFetchCabin = () => {
     error,
     isLoading,
   } = useQuery({ queryKey: ["cabins"], queryFn: getCabins });
-  return { cabins, isLoading };
+  return { cabins, isLoading, error };
 };

@@ -61,7 +61,7 @@ const CabinRow = ({ cabin }) => {
     description,
   } = cabin;
 
-  const { isCreating, createCabinMutate } = useCreateCabin();
+  const { createCabinMutate } = useCreateCabin();
   const handleDuplicate = () => {
     createCabinMutate({
       name: `copy of ${name}`,

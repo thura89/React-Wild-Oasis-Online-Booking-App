@@ -60,7 +60,9 @@ function BookingDetail() {
           </Button>
         )}
         {status === "checked-in" && (
-          <Button onClick={() => checkout(bookingId)}>Check out</Button>
+          <Button onClick={() => checkout(bookingId)} disabled={isCheckingOut}>
+            Check out
+          </Button>
         )}
         <Modal>
           <Modal.Open opens="deleteBooking">
