@@ -5,7 +5,6 @@ import { useDarkMode } from "../context/DarkModeContext";
 const DarkModeToggle = () => {
   const { isDarkMode, toggleDarkMode } = useDarkMode();
 
-  console.log(isDarkMode);
   return (
     <ButtonIcon onClick={toggleDarkMode}>
       {isDarkMode ? <HiOutlineSun /> : <HiOutlineMoon />}
